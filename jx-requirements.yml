@@ -1,25 +1,72 @@
+autoUpdate:
+  enabled: false
+  schedule: ""
+bootConfigURL: https://github.com/jenkins-x/jenkins-x-boot-config
 cluster:
-  clusterName: ""
-  environmentGitOwner: ""
-  environmentGitPublic: false
-  project: ""
-  provider: gke
-  zone: ""
-gitops: true
+  azure:
+    registrySubscription: ec48b4cb-76f9-487b-8fea-35a53a7618be
+  clusterName: aksprojectcodejx
+  devEnvApprovers:
+  - sh33dafi
+  - vvanouytsel
+  - team-church
+  environmentGitOwner: tm-project-code
+  environmentGitPublic: true
+  gitKind: github
+  gitName: github
+  gitServer: https://github.com
+  namespace: jx
+  project: aksprojectcodejx
+  provider: aks
+  registry: aksprojectcodejx
+  zone: westeurope
 environments:
-- key: dev
-- key: staging
-- key: production
+- ingress:
+    domain: 51.105.115.141.nip.io
+    externalDNS: false
+    namespaceSubDomain: -jx.
+    tls:
+      email: ""
+      enabled: false
+      production: false
+  key: dev
+  repository: environment-aksprojectcodejx-dev
+- ingress:
+    domain: ""
+    externalDNS: false
+    namespaceSubDomain: ""
+    tls:
+      email: ""
+      enabled: false
+      production: false
+  key: staging
+  repository: environment-aksprojectcodejx-staging
+- ingress:
+    domain: ""
+    externalDNS: false
+    namespaceSubDomain: ""
+    tls:
+      email: ""
+      enabled: false
+      production: false
+  key: production
+  repository: environment-aksprojectcodejx-production
+gitops: true
 ingress:
-  domain: ""
+  domain: 51.105.115.141.nip.io
   externalDNS: false
+  namespaceSubDomain: -jx.
   tls:
     email: ""
     enabled: false
     production: false
 kaniko: true
+repository: nexus
 secretStorage: local
 storage:
+  backup:
+    enabled: false
+    url: ""
   logs:
     enabled: false
     url: ""
@@ -29,7 +76,11 @@ storage:
   repository:
     enabled: false
     url: ""
+vault: {}
+velero:
+  schedule: ""
+  ttl: ""
 versionStream:
-  ref: "master"
+  ref: v1.0.411
   url: https://github.com/jenkins-x/jenkins-x-versions.git
 webhook: prow
